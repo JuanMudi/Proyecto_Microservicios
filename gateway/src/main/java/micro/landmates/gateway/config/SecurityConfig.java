@@ -25,6 +25,10 @@ public class SecurityConfig {
             .pathMatchers(HttpMethod.POST, "/keycloak-server/admin/realms/landmates/users")
             .permitAll()
 
+            // Actuator
+            .pathMatchers(HttpMethod.GET, "/actuator/**")
+            .permitAll()
+
             // Requier authentication for any other endpoints
             .anyExchange().authenticated())
         .oauth2ResourceServer(
