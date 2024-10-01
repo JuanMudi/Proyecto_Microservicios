@@ -21,6 +21,14 @@ public class SecurityConfig {
             .pathMatchers(HttpMethod.POST, "/keycloak-server/realms/landmates/protocol/openid-connect/token")
             .permitAll()
 
+            // Allow user registration
+            .pathMatchers(HttpMethod.POST, "/keycloak-server/admin/realms/landmates/users")
+            .permitAll()
+
+            // Actuator
+            .pathMatchers(HttpMethod.GET, "/actuator/**")
+            .permitAll()
+
             // Requier authentication for any other endpoints
             .anyExchange().authenticated())
         .oauth2ResourceServer(
