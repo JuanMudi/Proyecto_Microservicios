@@ -6,4 +6,16 @@
 POST {{host}}/keycloak-server/realms/landmates/protocol/openid-connect/token HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
-grant_type=password&client_id=myapp&username=admin1&password=admin123
+grant_type=client_credentials&client_id=landmates-gateway&client_secret=66sYlvYWgDGMi0dkVdz8DC6EeRvLRtVM
+
+### User login
+POST {{host}}/keycloak-server/realms/landmates/protocol/openid-connect/token HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&client_id=landmates-gateway&username=nikoresu&password=mypassword2024
+
+### Request to Login (Token Request)
+POST {{host}}/keycloak-server/realms/landmates/protocol/openid-connect/token HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&client_id=myapp&username=jmudi&password=mypassword2024

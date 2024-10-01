@@ -8,14 +8,21 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class GatewayConfig {
   @Bean
-  RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
+  public RouteLocator customRouteLocator(RouteLocatorBuilder builder,
+      KeycloakAuthGatewayFilterFactory keycloakAuthFilter) {
     return builder.routes()
-        .route("keycloak_route", r -> r
-            // Paths to rewrite
+        // Specific route for user registration (with token filter)
+        .route("keycloak_user_registration_route", r -> r
+            .path("/keycloak-server/admin/realms/landmates/users")
+            .filters(f -> f
+                .rewritePath("/keycloak-server/(?<segment>.*)", "/${segment}")
+                .filter(keycloakAuthFilter.apply(new KeycloakAuthGatewayFilterFactory.Config())))
+            .uri("http://localhost:9000"))
+
+        // General route without token filter for all other Keycloak paths
+        .route("keycloak_general_route", r -> r
             .path("/keycloak-server/**")
-            // Rewrite the path to remove /keycloak-server
             .filters(f -> f.rewritePath("/keycloak-server/(?<segment>.*)", "/${segment}"))
-            // Forward to Keycloak server running on localhost:9000
             .uri("http://localhost:9000"))
         .build();
   }
