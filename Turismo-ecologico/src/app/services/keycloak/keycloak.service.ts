@@ -15,7 +15,7 @@ export class KeycloakService {
       this._keycloak = new Keycloak({
         url: 'http://localhost:9000',
         realm: 'landmates',
-        clientId: 'myapp'
+        clientId: 'bsn'
       });
     }
     return this._keycloak;
@@ -28,23 +28,25 @@ export class KeycloakService {
   constructor() { }
 
   async init() {
-    console.log('Authenticade')
+   
     const authenticated: boolean = await this.keycloak?.init({
       onLoad: 'login-required',
+      checkLoginIframe: false
 
     });
 
     if (authenticated) {
-      this._profile = (await this.keycloak?.loadUserProfile()) as UserProfile;
+      this._profile = (await this.keycloak?.loadUserProfile())as UserProfile;
       this._profile.token = this.keycloak?.token;
+      console.log('Authenticade: ' + this._profile.token)
     }
   }
 
-  login() {
+  login(){
     return this.keycloak?.login();
   }
 
-  logout() {
-    return this.keycloak?.logout({ redirectUri: 'http://localhost:4200' });
+  logout(){
+    return this.keycloak?.logout({redirectUri: 'http:localhost4200'});
   }
 }
