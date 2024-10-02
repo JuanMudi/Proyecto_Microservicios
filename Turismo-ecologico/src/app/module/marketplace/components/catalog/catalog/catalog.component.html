@@ -1,0 +1,19 @@
+<div class="search-container">
+    <input 
+        type="text" 
+        [(ngModel)]="searchQuery" 
+        placeholder="Buscar servicios..." 
+        class="search-input"
+    />
+</div>
+
+<div class="gallery">
+    <div *ngFor="let service of filteredServices" class="service-card" (click)="goToDetail(service.id)">
+        <img [src]="service.imageUrl" alt="{{ service.title }}" class="service-image">
+        <h2 class="service-title">{{ service.title }}</h2>
+        <p class="service-description">{{ service.description }}</p>
+        <button (click)="buyProduct(service)" class="btn-comprar">Comprar</button>
+    </div>
+
+    
+</div>
