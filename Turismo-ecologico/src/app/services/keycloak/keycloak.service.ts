@@ -15,7 +15,7 @@ export class KeycloakService {
       this._keycloak = new Keycloak({
         url: 'http://localhost:9000',
         realm: 'landmates',
-        clientId: 'bsn'
+        clientId: 'myapp'
       });
     }
     return this._keycloak;
@@ -35,17 +35,16 @@ export class KeycloakService {
     });
 
     if (authenticated) {
-      this._profile = (await this.keycloak?.loadUserProfile())as UserProfile;
+      this._profile = (await this.keycloak?.loadUserProfile()) as UserProfile;
       this._profile.token = this.keycloak?.token;
-
     }
   }
 
-  login(){
+  login() {
     return this.keycloak?.login();
   }
 
-  logout(){
-    return this.keycloak?.logout({redirectUri: 'http:localhost4200'});
+  logout() {
+    return this.keycloak?.logout({ redirectUri: 'http://localhost:4200' });
   }
 }
