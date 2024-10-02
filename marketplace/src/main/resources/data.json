@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Alojamiento en Playa",
+    "description": "Un excelente lugar frente al mar.",
+    "category": "Alojamiento",
+    "price": 100,
+    "priceUnit": "day",
+    "country": "México",
+    "city": "Cancún"
+  },
+  {
+    "title": "Tour Ecológico en la Selva",
+    "description": "Una experiencia única en la selva.",
+    "category": "Paseos Ecológicos",
+    "price": 50,
+    "priceUnit": "person",
+    "country": "Brasil",
+    "city": "Manaos"
+  }
+]
