@@ -1,13 +1,10 @@
 package micro.landmates.marketplace.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
-
 import micro.landmates.marketplace.model.ServiceItem;
 
-@Repository
-public interface ServiceItemRepository extends JpaRepository<ServiceItem, Long> {
+public interface ServiceItemRepository extends MongoRepository<ServiceItem, String>{
   List<ServiceItem> findByCategory(String category);
 
   List<ServiceItem> findByCity(String city);

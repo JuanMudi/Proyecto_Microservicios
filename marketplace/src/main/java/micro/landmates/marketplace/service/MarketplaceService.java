@@ -23,7 +23,7 @@ public class MarketplaceService {
     return repository.findByCategory(category);
   }
 
-  public ServiceItem getServiceById(Long id) {
+  public ServiceItem getServiceById(String id) {
     return repository.findById(id).orElse(null);
   }
 

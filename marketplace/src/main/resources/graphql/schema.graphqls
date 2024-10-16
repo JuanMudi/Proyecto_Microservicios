@@ -1,0 +1,19 @@
+type ServiceItem {
+  id: ID!
+  title: String!
+  description: String
+  category: String
+  price: Float
+  priceUnit: String
+  country: String
+  city: String
+}
+
+type Query {
+  getServices: [ServiceItem]
+  getServiceById(id: ID!): ServiceItem
+}
+
+type Mutation {
+  createService(title: String!, description: String, category: String, price: Float): ServiceItem
+}

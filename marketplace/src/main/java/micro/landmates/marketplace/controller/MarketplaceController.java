@@ -30,7 +30,7 @@ public class MarketplaceController {
   }
 
   @GetMapping("/services/{id}")
-  public ServiceItem getServiceById(@PathVariable Long id) {
+  public ServiceItem getServiceById(@PathVariable String id) {
     return service.getServiceById(id);
   }
 
