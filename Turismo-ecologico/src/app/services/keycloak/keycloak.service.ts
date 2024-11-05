@@ -13,7 +13,7 @@ export class KeycloakService {
   get keycloak() {
     if (!this._keycloak) {
       this._keycloak = new Keycloak({
-        url: 'http://localhost:9000',
+        url: 'http://localhost:9090',
         realm: 'landmates',
         clientId: 'bsn'
       });
@@ -28,7 +28,7 @@ export class KeycloakService {
   constructor() { }
 
   async init() {
-   
+
     const authenticated: boolean = await this.keycloak?.init({
       onLoad: 'login-required',
       checkLoginIframe: false
@@ -36,17 +36,17 @@ export class KeycloakService {
     });
 
     if (authenticated) {
-      this._profile = (await this.keycloak?.loadUserProfile())as UserProfile;
+      this._profile = (await this.keycloak?.loadUserProfile()) as UserProfile;
       this._profile.token = this.keycloak?.token;
       console.log('Authenticade: ' + this._profile.token)
     }
   }
 
-  login(){
+  login() {
     return this.keycloak?.login();
   }
 
-  logout(){
-    return this.keycloak?.logout({redirectUri: 'http:localhost4200'});
+  logout() {
+    return this.keycloak?.logout({ redirectUri: 'http:localhost4200' });
   }
 }

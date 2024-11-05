@@ -11,7 +11,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:9000/realms/landmates/protocol/openid-connect/certs
+          jwk-set-uri: http://localhost:9090/realms/landmates/protocol/openid-connect/certs
 
 server:
   port: 8080
@@ -36,6 +36,6 @@ management:
       enabled: true
 
 keycloak:
-  token-url: http://localhost:9000/realms/landmates/protocol/openid-connect/token
+  token-url: http://localhost:9090/realms/landmates/protocol/openid-connect/token
   client-id: landmates-gateway
-  client-secret: 66sYlvYWgDGMi0dkVdz8DC6EeRvLRtVM
+  client-secret: vLGxNN08lTueoHz1hQuhpNm6F2OqaxVB
