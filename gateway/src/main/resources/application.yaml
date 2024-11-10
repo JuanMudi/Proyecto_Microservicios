@@ -1,3 +1,7 @@
+keycloak-url: http://localhost:9090
+eureka-url: http://localhost:8761
+server-port: 8080
+
 spring:
   application:
     name: gateway
@@ -11,16 +15,16 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:9090/realms/landmates/protocol/openid-connect/certs
+          jwk-set-uri: ${keycloak-url}/realms/landmates/protocol/openid-connect/certs
 
 server:
-  port: 8080
+  port: ${server-port:8080}
 
 eureka:
   client:
     register-with-eureka: true
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${eureka-url}/eureka/
   instance:
     prefer-ip-address: true
 
@@ -36,6 +40,6 @@ management:
       enabled: true
 
 keycloak:
-  token-url: http://localhost:9090/realms/landmates/protocol/openid-connect/token
+  token-url: ${keycloak-url}/realms/landmates/protocol/openid-connect/token
   client-id: landmates-gateway
   client-secret: vLGxNN08lTueoHz1hQuhpNm6F2OqaxVB
