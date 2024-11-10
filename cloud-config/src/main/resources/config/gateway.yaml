@@ -1,9 +1,9 @@
-# Service variables
+# Variables de servicio
 keycloak-url: http://localhost:9090
 server-port: 8080
 keycloak-secret: vLGxNN08lTueoHz1hQuhpNm6F2OqaxVB
 
-# Service description
+# Descripción del servicio
 spring:
   application:
     name: gateway
@@ -13,6 +13,12 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${keycloak-url}/realms/landmates/protocol/openid-connect/certs
 
 server:
   port: ${server-port:8080}
