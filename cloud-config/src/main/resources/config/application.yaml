@@ -1,0 +1,28 @@
+# Global variables
+eureka-url: http://localhost:8761
+
+# Eureka Registration
+eureka:
+  client:
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: ${eureka-url}/eureka/
+  instance:
+    prefer-ip-address: true
+
+# Actuator & Monitor
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+# Comp. Info
+info:
+  company:
+    name: Landmates
+    contact:
+      email: contact@landmates.co

@@ -1,0 +1,29 @@
+# Service variables
+keycloak-url: http://localhost:9090
+server-port: 8080
+keycloak-secret: vLGxNN08lTueoHz1hQuhpNm6F2OqaxVB
+
+# Service description
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+server:
+  port: ${server-port:8080}
+
+keycloak:
+  token-url: ${keycloak-url}/realms/landmates/protocol/openid-connect/token
+  client-id: landmates-gateway
+  client-secret: ${keycloak-secret}
+
+info:
+  app:
+    name: Landmates Gateway Service
+    description: API Gateway for routing and filtering
+    version: 0.0.1
