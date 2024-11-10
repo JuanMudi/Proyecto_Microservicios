@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>micro.landmates</groupId>
-	<artifactId>eureka-server</artifactId>
+	<artifactId>cloud-config</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>eureka-server</name>
-	<description>Eureka Discovery server for LandMates microservices</description>
+	<name>cloud-config</name>
+	<description>Demo project for Spring Boot</description>
 	<url />
 	<licenses>
 		<license />
@@ -34,7 +34,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+			<artifactId>spring-cloud-config-server</artifactId>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
