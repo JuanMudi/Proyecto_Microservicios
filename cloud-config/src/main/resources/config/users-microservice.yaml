@@ -2,3 +2,18 @@ server-port: 8082
 
 server:
   port: ${server-port:8082}
+
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings:
+        receiveMessage-in-0:
+          destination: user-management
+          group: consumer-group
+  data:
+    mongodb:
+      uri: mongodb+srv://ms-client:LandMates2024@clusterms.xphsc.mongodb.net/?retryWrites=true&w=majority&appName=ClusterMS
+      database: users

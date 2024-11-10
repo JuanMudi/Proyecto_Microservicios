@@ -1,17 +1,24 @@
 package micro.landmates.gateway.controller;
 
+import java.util.Collections;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
+
+import micro.landmates.gateway.model.KeycloakUserRegistrationDTO;
+import micro.landmates.gateway.model.KeycloakUserRegistrationDTO.Credential;
+import micro.landmates.gateway.model.UserDTO;
+import micro.landmates.gateway.model.UserRegistrationDTO;
 import micro.landmates.gateway.service.KeycloakService;
 import reactor.core.publisher.Mono;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +28,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/auth")
 public class AuthController {
     private final WebClient webClient;
-    private final KafkaTemplate<String, String> kafkaTemplate;
     private final KeycloakService keycloakService;
+    private final StreamBridge streamBridge;
 
     @Value("${spring.cloud.stream.bindings.sendMessage-out-0.destination:user-management}")
     private String userManagementTopic;
@@ -30,37 +37,53 @@ public class AuthController {
     @Value("${keycloak-url}")
     private String keycloakUrl;
 
-    public AuthController(WebClient.Builder webClientBuilder, KafkaTemplate<String, String> kafkaTemplate,
-            KeycloakService keycloakService) {
+    public AuthController(WebClient.Builder webClientBuilder, KeycloakService keycloakService,
+            StreamBridge streamBridge) {
         this.webClient = webClientBuilder.build();
-        this.kafkaTemplate = kafkaTemplate;
         this.keycloakService = keycloakService;
+        this.streamBridge = streamBridge;
     }
 
     @PostMapping("/register")
-    public Mono<ResponseEntity<String>> registerUser(@RequestBody Map<String, Object> registration) {
-        // Obtener el token de acceso desde KeycloakService
+    public Mono<ResponseEntity<String>> registerUser(@RequestBody UserRegistrationDTO registration) {
         String accessToken = keycloakService.getAccessToken();
 
-        Mono<ResponseEntity<String>> keycloakResponse = webClient
+        KeycloakUserRegistrationDTO keycloakUser = KeycloakUserRegistrationDTO.builder()
+                .username(registration.getUsername())
+                .firstName(registration.getFirstName())
+                .lastName(registration.getLastName())
+                .email(registration.getEmail())
+                .emailVerified(registration.isEmailVerified())
+                .enabled(registration.isEnabled())
+                .credentials(Collections.singletonList(new Credential(false, "password", registration.getPassword())))
+                .build();
+
+        return webClient
                 .post()
                 .uri(keycloakUrl + "/admin/realms/landmates/users")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
-                .bodyValue(registration)
+                .bodyValue(keycloakUser)
                 .retrieve()
                 .toEntity(String.class)
                 .map(entity -> {
                     if (entity.getStatusCode().is2xxSuccessful()) {
+                        System.out.println("User created successfully in Keycloak");
+
                         String locationHeader = entity.getHeaders().getFirst(HttpHeaders.LOCATION);
                         String userId = null;
                         if (locationHeader != null) {
                             userId = locationHeader.substring(locationHeader.lastIndexOf('/') + 1);
                         }
 
-                        registration.put("id", userId);
-
-                        kafkaTemplate.send(userManagementTopic, registration.toString());
+                        UserDTO userDTO = UserDTO.builder()
+                                .id(userId)
+                                .name(registration.getFirstName() + " " + registration.getLastName())
+                                .email(registration.getEmail())
+                                .age(registration.getAge())
+                                .bio(registration.getBio())
+                                .build();
+                        streamBridge.send(userManagementTopic, MessageBuilder.withPayload(userDTO).build());
 
                         return ResponseEntity.status(HttpStatus.CREATED).build();
                     } else if (entity.getStatusCode() == HttpStatus.CONFLICT) {
@@ -71,8 +94,6 @@ public class AuthController {
                         return ResponseEntity.status(entity.getStatusCode()).build();
                     }
                 });
-
-        return keycloakResponse;
     }
 
     @PostMapping("/login")
