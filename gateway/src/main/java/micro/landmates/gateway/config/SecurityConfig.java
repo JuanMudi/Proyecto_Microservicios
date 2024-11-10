@@ -11,28 +11,26 @@ import org.springframework.web.cors.CorsConfiguration;
 @Configuration
 @EnableWebFluxSecurity
 public class SecurityConfig {
-  @Bean
-  SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
-    return http
-        .cors(cors -> cors.configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()))
-        .csrf(csrf -> csrf.disable())
-        .authorizeExchange(exchange -> exchange
-            // Allow authentication methods
-            .pathMatchers(HttpMethod.POST, "/keycloak-server/realms/landmates/protocol/openid-connect/token")
-            .permitAll()
 
-            // Allow user registration
-            .pathMatchers(HttpMethod.POST, "/keycloak-server/admin/realms/landmates/users")
-            .permitAll()
+    @Bean
+    SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+        return http
+                .cors(cors -> cors.configurationSource(
+                        request -> new CorsConfiguration().applyPermitDefaultValues()))
+                .csrf(csrf -> csrf.disable())
+                .authorizeExchange(exchange -> exchange
+                        // Allow access to login and registration endpoints
+                        .pathMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .pathMatchers(HttpMethod.POST, "/auth/register").permitAll()
 
-            // Actuator
-            .pathMatchers(HttpMethod.GET, "/actuator/**")
-            .permitAll()
+                        // Allow access to Actuator endpoints
+                        .pathMatchers(HttpMethod.GET, "/actuator/**").permitAll()
 
-            // Requier authentication for any other endpoints
-            .anyExchange().authenticated())
-        .oauth2ResourceServer(
-            oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(new KeycloakJwtAuthenticationConverter())))
-        .build();
-  }
+                        // Any other request should be authenticated
+                        .anyExchange().authenticated())
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(jwt -> jwt.jwtAuthenticationConverter(
+                                new KeycloakJwtAuthenticationConverter())))
+                .build();
+    }
 }
