@@ -726,7 +726,7 @@
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
-      "secret": "**********",
+      "secret": "BeYS8ySrXHAzGjCq8iZz0apg99KkZJYx",
       "redirectUris": [
         "http://localhost:8080/keycloak-server/*"
       ],
