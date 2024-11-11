@@ -1,9 +1,7 @@
 package micro.landmates.users_microservice.service;
 
 import java.util.Optional;
-
 import org.springframework.stereotype.Service;
-
 import micro.landmates.users_microservice.data.UserRepository;
 import micro.landmates.users_microservice.model.User;
 import micro.landmates.users_microservice.model.UserDTO;
@@ -52,5 +50,17 @@ public class UserService {
 
   public User save(User user) {
     return userRepository.save(user);
+  }
+
+  public boolean deleteUser(String userId, String accessToken) {
+    Optional<User> existingUser = userRepository.findById(userId);
+    if (!existingUser.isPresent()) {
+      return false;
+    }
+
+    User user = existingUser.get();
+    user.setActive(false);
+    userRepository.save(user);
+    return true;
   }
 }

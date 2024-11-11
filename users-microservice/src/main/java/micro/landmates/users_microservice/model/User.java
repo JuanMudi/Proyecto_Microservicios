@@ -22,4 +22,5 @@ public class User {
   private int age;
   private String bio;
   private String email;
+  private boolean active;
 }
