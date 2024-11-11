@@ -37,3 +37,15 @@ info:
     name: Landmates Gateway Service
     description: API Gateway for routing and filtering
     version: 0.0.1
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    urls[0]:
+      name: Users Service
+      url: /aggregate/users/v3/api-docs
+    urls[1]:
+      name: Marketplace
+      url: /aggregate/marketplace/v3/api-docs
+  apidocs:
+    path: /api-docs

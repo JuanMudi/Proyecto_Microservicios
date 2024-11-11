@@ -18,3 +18,9 @@ spring:
     mongodb:
       uri: mongodb+srv://ms-client:LandMates2024@clusterms.xphsc.mongodb.net/?retryWrites=true&w=majority&appName=ClusterMS
       database: users
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs

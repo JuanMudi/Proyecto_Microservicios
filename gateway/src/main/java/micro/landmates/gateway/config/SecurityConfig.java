@@ -11,6 +11,9 @@ import org.springframework.web.cors.CorsConfiguration;
 @Configuration
 @EnableWebFluxSecurity
 public class SecurityConfig {
+        private final String[] freeResourceUrls = { "/swagger-ui.html", "/webjars/**", "/swagger-ui/**",
+                        "/v3/api-docs/**", "/api-docs/**",
+                        "/swagger-resources/**", "/aggregate/**" };
 
         @Bean
         SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
@@ -22,6 +25,8 @@ public class SecurityConfig {
                                                 // Allow access to login and registration endpoints
                                                 .pathMatchers(HttpMethod.POST, "/auth/login").permitAll()
                                                 .pathMatchers(HttpMethod.POST, "/auth/register").permitAll()
+
+                                                .pathMatchers(freeResourceUrls).permitAll()
 
                                                 // Allow access to Actuator endpoints
                                                 .pathMatchers(HttpMethod.GET, "/actuator/**").permitAll()
