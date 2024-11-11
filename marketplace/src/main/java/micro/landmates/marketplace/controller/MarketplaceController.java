@@ -2,7 +2,6 @@ package micro.landmates.marketplace.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +15,11 @@ import micro.landmates.marketplace.service.MarketplaceService;
 @RequestMapping("")
 public class MarketplaceController {
 
-  @Autowired
-  private MarketplaceService service;
+  private final MarketplaceService service;
+
+  public MarketplaceController(MarketplaceService service) {
+    this.service = service;
+  }
 
   @GetMapping("/services")
   public List<ServiceItem> getAllServices() {

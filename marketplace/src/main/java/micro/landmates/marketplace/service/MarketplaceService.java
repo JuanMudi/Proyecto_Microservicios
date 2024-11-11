@@ -11,7 +11,7 @@ public class MarketplaceService {
 
   private final ServiceItemRepository repository;
 
-  MarketplaceService(ServiceItemRepository serviceItemRepository) {
+  public MarketplaceService(ServiceItemRepository serviceItemRepository) {
     this.repository = serviceItemRepository;
   }
 
