@@ -25,7 +25,6 @@ public class KeycloakJwtAuthenticationConverter implements Converter<Jwt, Mono<A
   public Mono<AbstractAuthenticationToken> convert(@NonNull Jwt source) {
     return Mono.just(source)
         .flatMap(jwt -> {
-          System.out.println("Received from converter: " + jwt.toString());
           Collection<GrantedAuthority> authorities = Stream.concat(
               jwtGrantedAuthoritiesConverter.convert(jwt).stream(),
               extractResourceRoles(jwt).stream())
