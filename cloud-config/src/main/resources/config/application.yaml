@@ -26,3 +26,11 @@ info:
     name: Landmates
     contact:
       email: contact@landmates.co
+
+# Security
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${keycloak-url}/realms/landmates/protocol/openid-connect/certs

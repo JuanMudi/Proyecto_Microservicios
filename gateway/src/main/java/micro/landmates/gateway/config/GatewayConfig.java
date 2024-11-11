@@ -7,23 +7,24 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class GatewayConfig {
-    @Bean
-    public RouteLocator customRouteLocator(RouteLocatorBuilder builder,
-            KeycloakAuthGatewayFilterFactory keycloakAuthFilter) {
-        return builder.routes()
-                // Specific route for user registration (with token filter)
-                .route("keycloak_user_registration_route", r -> r
-                        .path("/keycloak-server/admin/realms/landmates/users")
-                        .filters(f -> f
-                                .rewritePath("/keycloak-server/(?<segment>.*)", "/${segment}")
-                                .filter(keycloakAuthFilter.apply(new KeycloakAuthGatewayFilterFactory.Config())))
-                        .uri("http://localhost:9090"))
-
-                // General route without token filter for all other Keycloak paths
-                .route("keycloak_general_route", r -> r
-                        .path("/keycloak-server/**")
-                        .filters(f -> f.rewritePath("/keycloak-server/(?<segment>.*)", "/${segment}"))
-                        .uri("http://localhost:9090"))
-                .build();
-    }
+  @Bean
+  public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
+    return builder.routes()
+        .route("user_microservice_route", r -> r
+            .path("/users/**")
+            .filters(f -> f
+                .removeRequestHeader("Cookie")
+                .rewritePath("/users/(?<segment>.*)", "/${segment}")
+                .filter((exchange, chain) -> {
+                  String authorizationHeader = exchange.getRequest().getHeaders().getFirst("Authorization");
+                  if (authorizationHeader != null) {
+                    exchange = exchange.mutate()
+                        .request(req -> req.header("Authorization", authorizationHeader))
+                        .build();
+                  }
+                  return chain.filter(exchange);
+                }))
+            .uri("lb://users-microservice"))
+        .build();
+  }
 }

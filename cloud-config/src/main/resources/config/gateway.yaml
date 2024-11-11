@@ -1,7 +1,8 @@
 # Variables de servicio
 keycloak-url: http://localhost:9090
 server-port: 8080
-keycloak-secret: vLGxNN08lTueoHz1hQuhpNm6F2OqaxVB
+keycloak-secret: BeYS8ySrXHAzGjCq8iZz0apg99KkZJYx
+kafka-broker: localhost:9092
 
 # Descripción del servicio
 spring:
@@ -13,12 +14,15 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
-
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: ${keycloak-url}/realms/landmates/protocol/openid-connect/certs
+    stream:
+      kafka:
+        binder:
+          brokers: ${kafka-broker}
+      bindings:
+        sendMessage-out-0:
+          destination: user-management
+  kafka:
+    bootstrap-servers: ${kafka-broker}
 
 server:
   port: ${server-port:8080}
@@ -26,7 +30,7 @@ server:
 keycloak:
   token-url: ${keycloak-url}/realms/landmates/protocol/openid-connect/token
   client-id: landmates-gateway
-  client-secret: ${keycloak-secret}
+  client-secret: ${keycloak-secret:BeYS8ySrXHAzGjCq8iZz0apg99KkZJYx}
 
 info:
   app:
