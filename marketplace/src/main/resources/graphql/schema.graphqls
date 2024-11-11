@@ -17,3 +17,4 @@ type Query {
 type Mutation {
   createService(title: String!, description: String, category: String, price: Float): ServiceItem
 }
+  
