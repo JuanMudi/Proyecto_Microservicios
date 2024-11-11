@@ -24,12 +24,6 @@ spring:
   kafka:
     bootstrap-servers: ${kafka-broker}
 
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: ${keycloak-url}/realms/landmates/protocol/openid-connect/certs
-
 server:
   port: ${server-port:8080}
 
