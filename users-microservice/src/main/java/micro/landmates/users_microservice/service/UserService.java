@@ -1,10 +1,14 @@
 package micro.landmates.users_microservice.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import micro.landmates.users_microservice.data.UserRepository;
 import micro.landmates.users_microservice.model.User;
 import micro.landmates.users_microservice.model.UserDTO;
+import micro.landmates.users_microservice.model.UserSummaryDTO;
 
 @Service
 public class UserService {
@@ -62,5 +66,24 @@ public class UserService {
     user.setActive(false);
     userRepository.save(user);
     return true;
+  }
+
+  public List<UserSummaryDTO> getAllUsers() {
+    return userRepository.findAll().stream()
+        .map(user -> UserSummaryDTO.builder()
+            .id(user.getId())
+            .name(user.getName())
+            .email(user.getEmail())
+            .build())
+        .collect(Collectors.toList());
+  }
+
+  public Optional<UserSummaryDTO> getUserById(String userId) {
+    return userRepository.findById(userId)
+        .map(user -> UserSummaryDTO.builder()
+            .id(user.getId())
+            .name(user.getName())
+            .email(user.getEmail())
+            .build());
   }
 }

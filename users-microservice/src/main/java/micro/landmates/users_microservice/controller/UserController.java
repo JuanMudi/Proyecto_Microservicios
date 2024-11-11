@@ -5,8 +5,12 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.extern.slf4j.Slf4j;
 
 import micro.landmates.users_microservice.model.UserDTO;
+import micro.landmates.users_microservice.model.UserSummaryDTO;
 import micro.landmates.users_microservice.service.UserService;
 import org.springframework.security.oauth2.jwt.Jwt;
+
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -82,6 +86,19 @@ public class UserController {
 
         userService.deleteUser(id, accessToken);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserSummaryDTO>> getAllUsers() {
+        List<UserSummaryDTO> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserSummaryDTO> getUserById(@PathVariable String id) {
+        return userService.getUserById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
 }

@@ -68,8 +68,6 @@ public class AuthController {
                 .toEntity(String.class)
                 .map(entity -> {
                     if (entity.getStatusCode().is2xxSuccessful()) {
-                        System.out.println("User created successfully in Keycloak");
-
                         String locationHeader = entity.getHeaders().getFirst(HttpHeaders.LOCATION);
                         String userId = null;
                         if (locationHeader != null) {

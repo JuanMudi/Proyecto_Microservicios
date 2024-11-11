@@ -34,7 +34,6 @@ public class UserConsumer {
       user.setBio(userDTO.getBio());
 
       userRepository.save(user);
-      log.info("User saved: {}", user);
     };
   }
 }
