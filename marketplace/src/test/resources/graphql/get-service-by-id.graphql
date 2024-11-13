@@ -1,0 +1,11 @@
+query {
+  getServiceById(id: "{id}") {
+    id
+    description
+    category
+    price
+    priceUnit
+    country
+    city
+  }
+}
