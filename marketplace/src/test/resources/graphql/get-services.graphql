@@ -1,0 +1,11 @@
+query {
+  getServices {
+    id
+    description
+    category
+    price
+    priceUnit
+    country
+    city
+  }
+}

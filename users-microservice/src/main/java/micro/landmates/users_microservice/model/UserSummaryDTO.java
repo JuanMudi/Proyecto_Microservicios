@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 
 @Getter
 @Setter
@@ -16,6 +17,7 @@ import lombok.Builder;
 @NoArgsConstructor
 @ToString
 @Builder
+@EqualsAndHashCode
 public class UserSummaryDTO implements Serializable {
   private String id;
   private String name;
