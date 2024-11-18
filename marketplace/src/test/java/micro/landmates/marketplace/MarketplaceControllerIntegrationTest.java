@@ -19,91 +19,93 @@ import micro.landmates.marketplace.service.MarketplaceService;
 @AutoConfigureWebTestClient
 @DirtiesContext
 public class MarketplaceControllerIntegrationTest {
-  @Autowired
-  private WebTestClient webTestClient;
+    @Autowired
+    private WebTestClient webTestClient;
 
-  @MockBean
-  private MarketplaceService marketplaceService;
+    @MockBean
+    private MarketplaceService marketplaceService;
 
-  @Test
-  public void testGetAllServices_Success() {
-    List<ServiceItem> serviceItems = List.of(
-        new ServiceItem("1", "Service One", "Description One", "Category One", 100.0, "hour", "Country One",
-            "City One"),
-        new ServiceItem("2", "Service Two", "Description Two", "Category Two", 200.0, "day", "Country Two",
-            "City Two"));
+    @Test
+    public void testGetAllServices_Success() {
+        List<ServiceItem> serviceItems = List.of(
+                new ServiceItem("1", "Service One", "Description One", "Category One", 100.0, "hour", "Country One",
+                        "City One", null, null),
+                new ServiceItem("2", "Service Two", "Description Two", "Category Two", 200.0, "day", "Country Two",
+                        "City Two", null, null));
 
-    when(marketplaceService.getAllServices()).thenReturn(serviceItems);
+        when(marketplaceService.getAllServices()).thenReturn(serviceItems);
 
-    webTestClient.get()
-        .uri("/services")
-        .exchange()
-        .expectStatus()
-        .isOk()
-        .expectBodyList(ServiceItem.class)
-        .isEqualTo(serviceItems);
-  }
+        webTestClient.get()
+                .uri("/services")
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBodyList(ServiceItem.class)
+                .isEqualTo(serviceItems);
+    }
 
-  @Test
-  public void testGetServicesByCategory_Success() {
-    String category = "Category One";
-    List<ServiceItem> serviceItems = List.of(
-        new ServiceItem("1", "Service One", "Description One", category, 100.0, "hour", "Country One", "City One"));
+    @Test
+    public void testGetServicesByCategory_Success() {
+        String category = "Category One";
+        List<ServiceItem> serviceItems = List.of(
+                new ServiceItem("1", "Service One", "Description One", category, 100.0, "hour", "Country One",
+                        "City One", null, null));
 
-    when(marketplaceService.getServicesByCategory(category)).thenReturn(serviceItems);
+        when(marketplaceService.getServicesByCategory(category)).thenReturn(serviceItems);
 
-    webTestClient.get()
-        .uri("/services/category/" + category)
-        .exchange()
-        .expectStatus()
-        .isOk()
-        .expectBodyList(ServiceItem.class)
-        .isEqualTo(serviceItems);
-  }
+        webTestClient.get()
+                .uri("/services/category/" + category)
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBodyList(ServiceItem.class)
+                .isEqualTo(serviceItems);
+    }
 
-  @Test
-  public void testGetServiceById_Success() {
-    String serviceId = "1";
-    ServiceItem serviceItem = new ServiceItem(serviceId, "Service One", "Description One", "Category One", 100.0,
-        "hour", "Country One", "City One");
+    @Test
+    public void testGetServiceById_Success() {
+        String serviceId = "1";
+        ServiceItem serviceItem = new ServiceItem(serviceId, "Service One", "Description One", "Category One", 100.0,
+                "hour", "Country One", "City One", null, null);
 
-    when(marketplaceService.getServiceById(serviceId)).thenReturn(serviceItem);
+        when(marketplaceService.getServiceById(serviceId)).thenReturn(serviceItem);
 
-    webTestClient.get()
-        .uri("/services/" + serviceId)
-        .exchange()
-        .expectStatus()
-        .isOk()
-        .expectBody(ServiceItem.class)
-        .isEqualTo(serviceItem);
-  }
+        webTestClient.get()
+                .uri("/services/" + serviceId)
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBody(ServiceItem.class)
+                .isEqualTo(serviceItem);
+    }
 
-  @Test
-  public void testGetServiceById_NotFound() {
-    String serviceId = "nonexistent";
-    when(marketplaceService.getServiceById(serviceId)).thenReturn(null);
+    @Test
+    public void testGetServiceById_NotFound() {
+        String serviceId = "nonexistent";
+        when(marketplaceService.getServiceById(serviceId)).thenReturn(null);
 
-    webTestClient.get()
-        .uri("/services/" + serviceId)
-        .exchange()
-        .expectStatus()
-        .isNotFound();
-  }
+        webTestClient.get()
+                .uri("/services/" + serviceId)
+                .exchange()
+                .expectStatus()
+                .isNotFound();
+    }
 
-  @Test
-  public void testSearchServices_Success() {
-    String city = "City One";
-    List<ServiceItem> serviceItems = List.of(
-        new ServiceItem("1", "Service One", "Description One", "Category One", 100.0, "hour", "Country One", city));
+    @Test
+    public void testSearchServices_Success() {
+        String city = "City One";
+        List<ServiceItem> serviceItems = List.of(
+                new ServiceItem("1", "Service One", "Description One", "Category One", 100.0, "hour", "Country One",
+                        city, null, null));
 
-    when(marketplaceService.searchServicesByCity(city)).thenReturn(serviceItems);
+        when(marketplaceService.searchServicesByCity(city)).thenReturn(serviceItems);
 
-    webTestClient.get()
-        .uri(uriBuilder -> uriBuilder.path("/services/search").queryParam("city", city).build())
-        .exchange()
-        .expectStatus()
-        .isOk()
-        .expectBodyList(ServiceItem.class)
-        .isEqualTo(serviceItems);
-  }
+        webTestClient.get()
+                .uri(uriBuilder -> uriBuilder.path("/services/search").queryParam("city", city).build())
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBodyList(ServiceItem.class)
+                .isEqualTo(serviceItems);
+    }
 }

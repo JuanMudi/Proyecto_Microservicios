@@ -43,9 +43,9 @@ public class MarketplaceGraphqlIntegrationTest {
 
     List<ServiceItem> serviceItems = List.of(
         new ServiceItem("1", "Service One", "Description One", "Category One", 100.0, "hour", "Country One",
-            "City One"),
+            "City One", null, null),
         new ServiceItem("2", "Service Two", "Description Two", "Category Two", 200.0, "day", "Country Two",
-            "City Two"));
+            "City Two", null, null));
 
     when(marketplaceService.getAllServices()).thenReturn(serviceItems);
 
@@ -63,7 +63,8 @@ public class MarketplaceGraphqlIntegrationTest {
   public void testGetServiceById_Success() throws IOException {
     String serviceId = "1";
     ServiceItem serviceItem = new ServiceItem(
-        serviceId, "Service One", "Description One", "Category One", 100.0, "hour", "Country One", "City One");
+        serviceId, "Service One", "Description One", "Category One", 100.0, "hour", "Country One", "City One", null,
+        null);
 
     when(marketplaceService.getServiceById(serviceId)).thenReturn(serviceItem);
 
