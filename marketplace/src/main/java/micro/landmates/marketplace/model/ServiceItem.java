@@ -27,6 +27,6 @@ public class ServiceItem {
   private String priceUnit;
   private String country;
   private String city;
-  private double latitude;
-  private double longitude;
+  private String latitude;
+  private String longitude;
 }
