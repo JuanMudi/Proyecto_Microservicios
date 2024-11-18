@@ -2,6 +2,9 @@ package micro.landmates.marketplace.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.mongodb.lang.Nullable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -27,6 +30,8 @@ public class ServiceItem {
   private String priceUnit;
   private String country;
   private String city;
+  @Nullable
   private String latitude;
+  @Nullable
   private String longitude;
 }
