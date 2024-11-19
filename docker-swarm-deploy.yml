@@ -1,0 +1,88 @@
+version: '3.8'
+services:
+  cloud-config:
+    image: cloud-config:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+    - "8888:8888"
+    networks:
+    - app-network
+
+  eureka-server:
+    image: eureka-server:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+    - "8761:8761"
+    networks:
+    - app-network
+
+  keycloak-server:
+    image: keycloak-server:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+    - "9090:9090"
+    networks:
+    - app-network
+
+  gateway:
+    image: gateway:latest
+    deploy:
+      replicas: 2 # Puedes ajustar el número de réplicas según sea necesario
+      restart_policy:
+        condition: on-failure
+    ports:
+    - "8080:8080"
+    networks:
+    - app-network
+    environment:
+    - SPRING_CLOUD_CONFIG_URI=http://cloud-config:8888
+    depends_on:
+    - cloud-config
+    - eureka-server
+    - keycloak-server
+
+  users-microservice:
+    image: users-microservice:latest
+    deploy:
+      replicas: 2 # Puedes ajustar el número de réplicas según sea necesario
+      restart_policy:
+        condition: on-failure
+    ports:
+    - "8082:8082"
+    networks:
+    - app-network
+    environment:
+    - SPRING_CLOUD_CONFIG_URI=http://cloud-config:8888
+    depends_on:
+    - eureka-server
+    - keycloak-server
+    - cloud-config
+
+  marketplace-microservice:
+    image: marketplace-microservice:latest
+    deploy:
+      replicas: 2 # Puedes ajustar el número de réplicas según sea necesario
+      restart_policy:
+        condition: on-failure
+    ports:
+    - "8081:8081"
+    networks:
+    - app-network
+    environment:
+    - SPRING_CLOUD_CONFIG_URI=http://cloud-config:8888
+    depends_on:
+    - eureka-server
+    - cloud-config
+
+networks:
+  app-network:
+    driver: overlay
