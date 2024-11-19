@@ -1,5 +1,6 @@
 server-port: 8082
-keycloak-url: http://localhost:9090
+keycloak-url: http://keycloak-server:9090
+kafka-broker: 54.224.168.24:9092
 
 server:
   port: ${server-port:8082}
@@ -9,7 +10,7 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: localhost:9092
+          brokers: ${kafka-broker}
       bindings:
         receiveMessage-in-0:
           destination: user-management
