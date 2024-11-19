@@ -26,10 +26,16 @@ public class SecurityConfig {
                                                 .pathMatchers(HttpMethod.POST, "/auth/login").permitAll()
                                                 .pathMatchers(HttpMethod.POST, "/auth/register").permitAll()
 
+                                                // Allow access to free resource URLs
                                                 .pathMatchers(freeResourceUrls).permitAll()
 
                                                 // Allow access to Actuator endpoints
                                                 .pathMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+
+                                                // Allow access to /marketplace/services and /marketplace/services/**
+                                                // for GET requests
+                                                .pathMatchers(HttpMethod.GET, "/marketplace/services").permitAll()
+                                                .pathMatchers(HttpMethod.GET, "/marketplace/services/**").permitAll()
 
                                                 // Any other request should be authenticated
                                                 .anyExchange().authenticated())
