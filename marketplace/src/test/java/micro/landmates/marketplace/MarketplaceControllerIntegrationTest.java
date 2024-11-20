@@ -1,9 +1,7 @@
 package micro.landmates.marketplace;
 
-import static org.mockito.Mockito.when;
-
-import java.util.List;
-
+import micro.landmates.marketplace.model.ServiceItem;
+import micro.landmates.marketplace.service.MarketplaceService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -12,8 +10,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import micro.landmates.marketplace.model.ServiceItem;
-import micro.landmates.marketplace.service.MarketplaceService;
+import java.util.List;
+import java.util.UUID;
+
+import static org.mockito.Mockito.when;
 
 @SpringBootTest(classes = MarketplaceApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
@@ -27,10 +27,11 @@ public class MarketplaceControllerIntegrationTest {
 
     @Test
     public void testGetAllServices_Success() {
+        String ownerId = UUID.randomUUID().toString();
         List<ServiceItem> serviceItems = List.of(
-                new ServiceItem("1", "Service One", "Description One", "Category One", 100.0, "hour", "Country One",
+                new ServiceItem("1", ownerId, "Service One", "Description One", "Category One", 100.0, "hour", "Country One",
                         "City One", null, null),
-                new ServiceItem("2", "Service Two", "Description Two", "Category Two", 200.0, "day", "Country Two",
+                new ServiceItem("2", ownerId, "Service Two", "Description Two", "Category Two", 200.0, "day", "Country Two",
                         "City Two", null, null));
 
         when(marketplaceService.getAllServices()).thenReturn(serviceItems);
@@ -47,8 +48,9 @@ public class MarketplaceControllerIntegrationTest {
     @Test
     public void testGetServicesByCategory_Success() {
         String category = "Category One";
+        String ownerId = UUID.randomUUID().toString();
         List<ServiceItem> serviceItems = List.of(
-                new ServiceItem("1", "Service One", "Description One", category, 100.0, "hour", "Country One",
+                new ServiceItem("1", ownerId, "Service One", "Description One", category, 100.0, "hour", "Country One",
                         "City One", null, null));
 
         when(marketplaceService.getServicesByCategory(category)).thenReturn(serviceItems);
@@ -65,7 +67,8 @@ public class MarketplaceControllerIntegrationTest {
     @Test
     public void testGetServiceById_Success() {
         String serviceId = "1";
-        ServiceItem serviceItem = new ServiceItem(serviceId, "Service One", "Description One", "Category One", 100.0,
+        String ownerId = UUID.randomUUID().toString();
+        ServiceItem serviceItem = new ServiceItem(serviceId, ownerId, "Service One", "Description One", "Category One", 100.0,
                 "hour", "Country One", "City One", null, null);
 
         when(marketplaceService.getServiceById(serviceId)).thenReturn(serviceItem);
@@ -94,8 +97,9 @@ public class MarketplaceControllerIntegrationTest {
     @Test
     public void testSearchServices_Success() {
         String city = "City One";
+        String ownerId = UUID.randomUUID().toString();
         List<ServiceItem> serviceItems = List.of(
-                new ServiceItem("1", "Service One", "Description One", "Category One", 100.0, "hour", "Country One",
+                new ServiceItem("1", "Service One", ownerId, "Description One", "Category One", 100.0, "hour", "Country One",
                         city, null, null));
 
         when(marketplaceService.searchServicesByCity(city)).thenReturn(serviceItems);
