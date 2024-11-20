@@ -1,0 +1,98 @@
+<div class="container">
+    <!-- Imagen de la empresa -->
+    <div class="company-image">
+      <img src="path-to-your-company-image.jpg" alt="Imagen de la Empresa" class="img-fluid">
+    </div>
+  
+    <!-- Formulario de creación -->
+    <div class="create-service-form">
+      <h2>Crear Nuevo Servicio</h2>
+      
+      <form (ngSubmit)="submitService()">
+        <!-- Título -->
+        <div class="form-group">
+          <label for="title">Título</label>
+          <input type="text" id="title" [(ngModel)]="newService.title" name="title" required class="form-control">
+        </div>
+        
+        <!-- Descripción -->
+        <div class="form-group">
+          <label for="description">Descripción</label>
+          <textarea id="description" [(ngModel)]="newService.description" name="description" required class="form-control" rows="4"></textarea>
+        </div>
+  
+        <!-- Categoría -->
+        <div class="form-group">
+          <label for="category">Categoría</label>
+          <select id="category" [(ngModel)]="newService.category" name="category" required (change)="onCategoryChange()" class="form-control">
+            <option value="transporte">Transporte</option>
+            <option value="paseos-ecologicos">Paseos Ecológicos</option>
+            <option value="alimentacion">Alimentación</option>
+            <option value="alojamiento">Alojamiento</option>
+          </select>
+        </div>
+  
+        <!-- Campos para la categoría de Transporte -->
+        <div *ngIf="newService.category === 'transporte'" class="transport-fields">
+          <div class="form-group">
+            <label for="departureDate">Fecha de Salida</label>
+            <input type="datetime-local" id="departureDate" [(ngModel)]="newService.departureDate" name="departureDate" required class="form-control">
+          </div>
+          
+          <div class="form-group">
+            <label for="arrivalDate">Fecha de Llegada</label>
+            <input type="datetime-local" id="arrivalDate" [(ngModel)]="newService.arrivalDate" name="arrivalDate" required class="form-control">
+          </div>
+          
+          <div class="form-group">
+            <label for="route">Trayecto</label>
+            <input type="text" id="route" [(ngModel)]="newService.route" name="route" required class="form-control">
+          </div>
+  
+          <div class="form-group">
+            <label for="transportType">Tipo de Transporte</label>
+            <input type="text" id="transportType" [(ngModel)]="newService.transportType" name="transportType" required class="form-control">
+          </div>
+        </div>
+  
+        <!-- Campos para la categoría de Paseos Ecológicos -->
+        <div *ngIf="newService.category === 'paseos-ecologicos'" class="ecological-tour-fields">
+          <div class="form-group">
+            <label for="operatingDays">Días que Atiende</label>
+            <input type="text" id="operatingDays" [(ngModel)]="newService.operatingDays" name="operatingDays" required class="form-control">
+          </div>
+  
+          <div class="form-group">
+            <label for="operatingHours">Horas de Atención</label>
+            <input type="text" id="operatingHours" [(ngModel)]="newService.operatingHours" name="operatingHours" required class="form-control">
+          </div>
+  
+          <div class="form-group">
+            <label for="tourRoute">Trayecto</label>
+            <input type="text" id="tourRoute" [(ngModel)]="newService.tourRoute" name="tourRoute" required class="form-control">
+          </div>
+        </div>
+  
+        <!-- Campos para la categoría de Alimentación -->
+        <div *ngIf="newService.category === 'alimentacion'" class="food-fields">
+          <div class="form-group">
+            <label for="menu">Menú (Máximo 500 palabras)</label>
+            <textarea id="menu" [(ngModel)]="newService.menu" name="menu" required class="form-control" rows="5" maxlength="500"></textarea>
+          </div>
+        </div>
+  
+        <!-- Campos para la categoría de Alojamiento -->
+        <div *ngIf="newService.category === 'alojamiento'" class="accommodation-fields">
+          <div class="form-group">
+            <label for="availableRooms">Habitaciones Disponibles</label>
+            <input type="number" id="availableRooms" [(ngModel)]="newService.availableRooms" name="availableRooms" required class="form-control">
+          </div>
+        </div>
+  
+        <!-- Botones -->
+        <button type="submit" class="btn btn-primary">Crear Servicio</button>
+        <button type="button" class="btn btn-secondary" (click)="clearForm()">Limpiar</button>
+      </form>
+    </div>
+  </div>
+  

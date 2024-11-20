@@ -1,0 +1,25 @@
+<div class="card-container">
+    <!-- Botón "Volver" -->
+    <button (click)="goBack()" class="back-button">
+      Volver
+    </button>
+  
+    <!-- Muestra los resultados si hay información disponible -->
+    <div *ngIf="countryData" class="card">
+      <h2>{{ countryData.name.common }}</h2>
+      <img [src]="countryData.flags.svg" alt="Bandera" class="flag">
+      <div class="info">
+        <p><strong>Capital:</strong> {{ countryData.capital[0] }}</p>
+        <p><strong>Región:</strong> {{ countryData.region }}</p>
+        <p><strong>Población:</strong> {{ countryData.population | number }}</p>
+        <p><strong>Área:</strong> {{ countryData.area | number }} km²</p>
+        <p><strong>Idioma(s):</strong> {{ countryData.languages | json }}</p>
+      </div>
+    </div>
+  
+    <!-- Muestra un mensaje de error si no se encontró información -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </div>
+  

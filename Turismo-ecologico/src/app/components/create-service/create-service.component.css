@@ -1,0 +1,85 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Centra el contenido en toda la pantalla */
+    text-align: center;
+  }
+  
+  .company-image img {
+    width: 150px; /* Ajusta el tamaño de la imagen según sea necesario */
+    height: 150px;
+    border-radius: 50%; /* Imagen redonda */
+    margin-bottom: 30px; /* Espacio debajo de la imagen */
+  }
+  
+  .create-service-form {
+    width: 50%; /* Ancho del formulario */
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .create-service-form h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+    width: 90%;
+  }
+  
+  label {
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+  }
+  
+  textarea {
+    resize: none;
+  }
+  
+  textarea[maxlength="500"] {
+    max-height: 200px;
+  }
+  
+  .btn {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn:hover {
+    background-color: #218838;
+  }
+
+  .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px; /* Separar los botones */
+  }
+  
+  .btn-secondary:hover {
+    background-color: #5a6268;
+  }
+  
+  

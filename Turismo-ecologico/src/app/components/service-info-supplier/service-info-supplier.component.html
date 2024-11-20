@@ -1,0 +1,37 @@
+<div class="service-detail">
+  <div *ngIf="service">
+      <img [src]="service.imageUrl" alt="Imagen del servicio" class="service-detail-image">
+      <h1 class="service-detail-title">{{ service.title }}</h1>
+      <p class="service-detail-description">{{ service.description }}</p>
+      <p class="service-detail-category">Categoría: {{ service.category }}</p>
+      
+      <!-- Botones Condicionales -->
+      <div *ngIf="service.category === 'Transporte' || service.category === 'Alojamiento'" class="buttons-container">
+          <button *ngIf="service.category === 'Transporte' || service.category === 'Alojamiento'" class="btn-service-option" (click)="viewMap()">Ver Mapa</button>
+          <button *ngIf="service.category === 'Alojamiento' ||service.category === 'Transporte' " class="btn-service-option" (click)="viewWeather()">Ver Clima</button>
+          <button *ngIf="service.category === 'Alojamiento' ||service.category === 'Transporte' " class="btn-service-option" (click)="viewCountry()">Ver Info País</button>
+      </div>
+  </div>
+
+  
+  <!-- Lista de calificaciones -->
+  <div class="ratings-section">
+      <h2>Calificaciones</h2>
+      <div *ngFor="let rating of ratings" class="rating-item">
+          <img [src]="rating.userImage" alt="Imagen de usuario" class="user-image">
+          <div class="rating-info">
+              <p class="rating-comment">{{ rating.comment }}</p>
+              <div class="rating-stars">
+                  <ng-container *ngFor="let star of [].constructor(rating.stars); let i = index">
+                      <span class="star">&#9733;</span>
+                  </ng-container>
+                  <ng-container *ngFor="let star of [].constructor(5 - rating.stars); let i = index">
+                      <span class="star empty">&#9733;</span>
+                  </ng-container>
+              </div>
+          </div>
+      </div>
+  </div>
+
+ 
+</div>

@@ -1,0 +1,56 @@
+<div class="service-detail">
+    <div *ngIf="service">
+      <img [src]="service.imageUrl" alt="Imagen del servicio" class="service-detail-image">
+      <h1 class="service-detail-title">{{ service.title }}</h1>
+      <p class="service-detail-description">{{ service.description }}</p>
+      <p class="service-detail-category">Categoría: {{ service.category }}</p>
+    </div>
+  
+    <!-- Caja de preguntas -->
+    <div class="questions-section">
+      <textarea 
+        [(ngModel)]="question" 
+        (input)="updateCharacterCount()" 
+        class="question-input" 
+        placeholder="Escribe tu pregunta aquí..." 
+        maxlength="500"></textarea>
+      <p class="character-count">{{ characterCount }}/500 caracteres</p>
+      
+      <!-- Botón para enviar pregunta -->
+      <button (click)="submitQuestion()" class="btn-enviar-pregunta">Enviar Pregunta</button>
+    </div>
+  
+    <!-- Lista de calificaciones -->
+    <div class="ratings-section">
+      <h2>Calificaciones</h2>
+      <div *ngFor="let rating of ratings" class="rating-item">
+        <img [src]="rating.userImage" alt="Imagen de usuario" class="user-image">
+        <div class="rating-info">
+          <p class="rating-comment">{{ rating.comment }}</p>
+          <div class="rating-stars">
+            <ng-container *ngFor="let star of [].constructor(rating.stars); let i = index">
+              <span class="star">&#9733;</span>
+            </ng-container>
+            <ng-container *ngFor="let star of [].constructor(5 - rating.stars); let i = index">
+              <span class="star empty">&#9733;</span>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Formulario para dejar una nueva calificación -->
+    <div class="new-rating-section">
+      <h3>Deja tu calificación</h3>
+      <div class="rating-form">
+        <label for="rating">Calificación (1-5):</label>
+        <select [(ngModel)]="newRating.stars" id="rating" class="rating-select">
+          <option *ngFor="let num of [1, 2, 3, 4, 5]" [value]="num">{{ num }}</option>
+        </select>
+        <label for="comment">Comentario:</label>
+        <textarea [(ngModel)]="newRating.comment" id="comment" placeholder="Escribe tu comentario aquí..." class="rating-input"></textarea>
+        <button (click)="submitRating()" class="btn-submit-rating">Enviar Calificación</button>
+      </div>
+    </div>
+  </div>
+  

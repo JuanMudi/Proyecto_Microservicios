@@ -1,0 +1,118 @@
+<div class="register-container">
+  <div class="register-form-wrapper">
+    <img src="assets/ecoTurismLogo.jpg" alt="EcoTurism Logo" class="register-logo" />
+
+    <h2>Registro</h2>
+
+    <!-- Selector de tipo de usuario -->
+    <div class="user-type-switch">
+      <label>
+        <input 
+          type="radio" 
+          name="userType" 
+          value="cliente" 
+          [(ngModel)]="userType" 
+          (change)="onUserTypeChange()" 
+          checked 
+        /> Cliente
+      </label>
+      <label>
+        <input 
+          type="radio" 
+          name="userType" 
+          value="proveedor" 
+          [(ngModel)]="userType" 
+          (change)="onUserTypeChange()" 
+        /> Proveedor
+      </label>
+    </div>
+
+    <!-- Formulario -->
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Usuario</label>
+        <input 
+          id="username" 
+          type="text" 
+          formControlName="username" 
+          placeholder="Ingrese su usuario" 
+          required 
+          class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input 
+          id="password" 
+          type="password" 
+          formControlName="password" 
+          placeholder="Ingrese su contraseña" 
+          required 
+          class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input 
+          id="nombre" 
+          type="text" 
+          formControlName="nombre" 
+          placeholder="Ingrese su nombre" 
+          required 
+          class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="apellido">Apellido</label>
+        <input 
+          id="apellido" 
+          type="text" 
+          formControlName="apellido" 
+          placeholder="Ingrese su apellido" 
+          required 
+          class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="edad">Edad</label>
+        <input 
+          id="edad" 
+          type="number" 
+          formControlName="edad" 
+          placeholder="Ingrese su edad" 
+          required 
+          class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea 
+          id="descripcion" 
+          formControlName="descripcion" 
+          placeholder="Ingrese una breve descripción" 
+          required 
+          class="form-control"></textarea>
+      </div>
+
+      <!-- Campos adicionales para proveedor -->
+      <div *ngIf="userType === 'proveedor'">
+        <div class="form-group">
+          <label for="paginaWeb">Página Web</label>
+          <input 
+            id="paginaWeb" 
+            type="url" 
+            formControlName="paginaWeb" 
+            placeholder="Ingrese su página web" 
+            class="form-control" />
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="form-buttons">
+        <button type="button" class="btn-clear" (click)="clearForm()">Limpiar</button>
+        <button type="submit" class="btn-submit" [disabled]="registerForm.invalid">Enviar</button>
+        <button type="button" class="btn-back" (click)="redirectToLogin()">Volver al Login</button>
+      </div>
+    </form>
+  </div>
+</div>

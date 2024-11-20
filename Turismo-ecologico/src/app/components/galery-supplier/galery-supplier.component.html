@@ -1,0 +1,29 @@
+<div class="header">
+    <button class="cart-button" (click)="goToCart()">Carrito de compras</button>
+</div>
+
+<div class="search-container">
+    <input 
+        type="text" 
+        [(ngModel)]="searchQuery" 
+        placeholder="Buscar servicios..." 
+        class="search-input"
+    />
+
+    <select [(ngModel)]="selectedCategory" class="category-filter">
+        <option value="">Todas las categorías</option>
+        <option value="Alojamiento">Alojamiento</option>
+        <option value="Alimentación">Alimentación</option>
+        <option value="Transporte">Transporte</option>
+        <option value="Paseos Ecológicos">Paseos Ecológicos</option>
+    </select>
+</div>
+
+<div class="gallery">
+    <div *ngFor="let service of filteredServices" class="service-card" (click)="goToDetail(service.id)">
+        <img [src]="service.imageUrl" alt="{{ service.title }}" class="service-image">
+        <h2 class="service-title">{{ service.title }}</h2>
+        <p class="service-description">{{ service.description }}</p>
+        <button (click)="buyProduct(service)" class="btn-comprar">Comprar</button>
+    </div>
+</div>

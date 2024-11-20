@@ -1,0 +1,27 @@
+<div class="weather-container">
+    <h1>Clima en {{ city }}</h1>
+  
+    <div class="date-picker">
+      <label for="endDate">Selecciona la fecha final:</label>
+      <input
+        type="date"
+        [(ngModel)]="endDate"
+        (change)="filterWeatherData(weatherData)"
+        min="{{ startDate }}" 
+      />
+    </div>
+  
+    <div *ngIf="weatherData.length > 0; else noData">
+      <div *ngFor="let weather of weatherData" class="weather-card">
+        <h3>{{ weather.dt_txt | date: 'fullDate' }}</h3>
+        <p><strong>Temperatura:</strong> {{ weather.main.temp }} °C</p>
+        <p><strong>Descripción:</strong> {{ weather.weather[0].description }}</p>
+        <p><strong>Humedad:</strong> {{ weather.main.humidity }}%</p>
+      </div>
+    </div>
+  
+    <ng-template #noData>
+      <p>{{ errorMessage }}</p>
+    </ng-template>
+  </div>
+  

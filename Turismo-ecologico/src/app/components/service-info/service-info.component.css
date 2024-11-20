@@ -1,0 +1,176 @@
+.service-detail {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  .service-detail-image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 5px;
+  }
+  
+  .service-detail-title {
+    font-size: 2em;
+    margin: 10px 0;
+  }
+  
+  .service-detail-description {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .service-detail-category {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .questions-section {
+    margin-top: 20px;
+  }
+  
+  .question-input {
+    padding: 15px;
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    height: 100px; /* Ajusta la altura de la caja de texto */
+    margin-bottom: 10px;
+    resize: none; /* Evita que el usuario cambie el tamaño manualmente */
+    overflow-y: auto; /* Permite el scroll si el texto excede la altura */
+  }
+  
+  .character-count {
+    font-size: 14px;
+    color: #555;
+    text-align: right;
+  }
+  
+  .btn-enviar-pregunta {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 200px;
+    margin: 0 auto;
+    display: block;
+  }
+  
+  .btn-enviar-pregunta:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Estilos para las calificaciones */
+  .ratings-section {
+    margin-top: 30px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .ratings-section h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+  }
+  
+  .rating-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+  
+  .rating-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .rating-comment {
+    font-size: 1em;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .rating-stars {
+    display: flex;
+  }
+  
+  .star {
+    color: gold;
+    font-size: 18px;
+    margin-right: 2px;
+  }
+  
+  .star.empty {
+    color: #ddd;
+  }
+  
+  /* Estilos para el formulario de nueva calificación */
+  .new-rating-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .new-rating-section h3 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+  
+  .rating-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .rating-select, .rating-input {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .rating-input {
+    height: 100px;
+    resize: none;
+  }
+  
+  .btn-submit-rating {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 200px;
+    margin: 0 auto;
+    display: block;
+  }
+  
+  .btn-submit-rating:hover {
+    background-color: #218838;
+  }
+  
