@@ -1,5 +1,6 @@
 package micro.landmates.marketplace.service;
 
+import micro.landmates.marketplace.model.PublishServiceItemDto;
 import org.springframework.stereotype.Service;
 
 import micro.landmates.marketplace.model.ServiceItem;
@@ -31,4 +32,19 @@ public class MarketplaceService {
     return repository.findByCity(city);
   }
 
+  public ServiceItem createServiceItem(PublishServiceItemDto serviceItem, String userId) {
+    ServiceItem serviceItemEntity = ServiceItem.builder()
+            .ownerId(userId)
+            .price(serviceItem.getPrice())
+            .category(serviceItem.getCategory())
+            .city(serviceItem.getCity())
+            .country(serviceItem.getCountry())
+            .description(serviceItem.getDescription())
+            .title(serviceItem.getTitle())
+            .latitude(serviceItem.getLatitude())
+            .longitude(serviceItem.getLongitude())
+            .priceUnit(serviceItem.getPriceUnit())
+            .build();
+    return repository.save(serviceItemEntity);
+  }
 }
