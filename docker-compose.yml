@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   cloud-config:
-    image: cloud-config:latest 
+    image: nicolasmonta1807/cloud-config:latest 
     container_name: cloud-config
     ports:
       - "8888:8888"
@@ -9,7 +9,7 @@ services:
       - app-network
   
   eureka-server:
-    image: eureka-server:latest
+    image: nicolasmonta1807/eureka-server:latest
     container_name: eureka-server
     ports:
       - "8761:8761"
@@ -17,7 +17,7 @@ services:
       - app-network
   
   keycloak-server:
-    image: keycloak-server:latest
+    image: nicolasmonta1807/keycloak-server:latest
     container_name: keycloak-server
     ports:
       - "9090:9090"
@@ -25,7 +25,7 @@ services:
       - app-network
 
   gateway:
-    image: gateway:latest
+    image: nicolasmonta1807/gateway:latest
     container_name: gateway
     ports:
       - "8080:8080"
@@ -39,7 +39,7 @@ services:
       - SPRING_CLOUD_CONFIG_URI=http://cloud-config:8888
   
   users-microservice:
-    image: users-microservice:latest
+    image: nicolasmonta1807/users-microservice:latest
     container_name: users-microservice
     ports:
       - "8082:8082"
@@ -53,7 +53,7 @@ services:
       - cloud-config
   
   marketplace-microservice:
-    image: marketplace-microservice:latest
+    image: nicolasmonta1807/marketplace-microservice:latest
     container_name: marketplace-microservice
     ports:
       - "8081:8081"

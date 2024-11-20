@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   cloud-config:
-    image: cloud-config:latest
+    image: nicolasmonta1807/cloud-config:latest
     deploy:
       replicas: 1
       restart_policy:
@@ -12,7 +12,7 @@ services:
     - app-network
 
   eureka-server:
-    image: eureka-server:latest
+    image: nicolasmonta1807/eureka-server:latest
     deploy:
       replicas: 1
       restart_policy:
@@ -23,7 +23,7 @@ services:
     - app-network
 
   keycloak-server:
-    image: keycloak-server:latest
+    image: nicolasmonta1807/keycloak-server:latest
     deploy:
       replicas: 1
       restart_policy:
@@ -34,9 +34,9 @@ services:
     - app-network
 
   gateway:
-    image: gateway:latest
+    image: nicolasmonta1807/gateway:latest
     deploy:
-      replicas: 2 # Puedes ajustar el número de réplicas según sea necesario
+      replicas: 1
       restart_policy:
         condition: on-failure
     ports:
@@ -51,9 +51,9 @@ services:
     - keycloak-server
 
   users-microservice:
-    image: users-microservice:latest
+    image: nicolasmonta1807/users-microservice:latest
     deploy:
-      replicas: 2 # Puedes ajustar el número de réplicas según sea necesario
+      replicas: 1
       restart_policy:
         condition: on-failure
     ports:
@@ -68,9 +68,9 @@ services:
     - cloud-config
 
   marketplace-microservice:
-    image: marketplace-microservice:latest
+    image: nicolasmonta1807/marketplace-microservice:latest
     deploy:
-      replicas: 2 # Puedes ajustar el número de réplicas según sea necesario
+      replicas: 1
       restart_policy:
         condition: on-failure
     ports:

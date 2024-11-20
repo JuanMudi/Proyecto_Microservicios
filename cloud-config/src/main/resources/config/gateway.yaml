@@ -5,6 +5,11 @@ keycloak-secret: BeYS8ySrXHAzGjCq8iZz0apg99KkZJYx
 kafka-broker: 54.224.168.24:9092
 
 # Descripción del servicio
+
+eureka:
+  instance:
+    hostname: gateway
+
 spring:
   application:
     name: gateway

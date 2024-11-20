@@ -5,6 +5,10 @@ kafka-broker: 54.224.168.24:9092
 server:
   port: ${server-port:8082}
 
+eureka:
+  instance:
+    hostname: users-microservice
+
 spring:
   cloud:
     stream:

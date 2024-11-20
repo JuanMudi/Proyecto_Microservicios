@@ -8,7 +8,7 @@ eureka:
     serviceUrl:
       defaultZone: ${eureka-url}/eureka/
   instance:
-    prefer-ip-address: true
+    prefer-ip-address: false
 
 # Actuator & Monitor
 management:
