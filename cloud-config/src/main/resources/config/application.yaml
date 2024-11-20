@@ -1,5 +1,6 @@
 # Global variables
 eureka-url: http://eureka-server:8761
+keycloak-url: http://keycloak-server:9090
 
 # Eureka Registration
 eureka:

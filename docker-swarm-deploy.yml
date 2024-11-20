@@ -7,9 +7,9 @@ services:
       restart_policy:
         condition: on-failure
     ports:
-    - "8888:8888"
+      - "8888:8888"
     networks:
-    - app-network
+      - app-network
 
   eureka-server:
     image: nicolasmonta1807/eureka-server:latest
@@ -18,9 +18,9 @@ services:
       restart_policy:
         condition: on-failure
     ports:
-    - "8761:8761"
+      - "8761:8761"
     networks:
-    - app-network
+      - app-network
 
   keycloak-server:
     image: nicolasmonta1807/keycloak-server:latest
@@ -29,9 +29,9 @@ services:
       restart_policy:
         condition: on-failure
     ports:
-    - "9090:9090"
+      - "9090:9090"
     networks:
-    - app-network
+      - app-network
 
   gateway:
     image: nicolasmonta1807/gateway:latest
@@ -40,15 +40,15 @@ services:
       restart_policy:
         condition: on-failure
     ports:
-    - "8080:8080"
+      - "8080:8080"
     networks:
-    - app-network
+      - app-network
     environment:
-    - SPRING_CLOUD_CONFIG_URI=http://cloud-config:8888
+      - SPRING_CLOUD_CONFIG_URI=http://cloud-config:8888
     depends_on:
-    - cloud-config
-    - eureka-server
-    - keycloak-server
+      - cloud-config
+      - eureka-server
+      - keycloak-server
 
   users-microservice:
     image: nicolasmonta1807/users-microservice:latest
@@ -57,15 +57,15 @@ services:
       restart_policy:
         condition: on-failure
     ports:
-    - "8082:8082"
+      - "8082:8082"
     networks:
-    - app-network
+      - app-network
     environment:
-    - SPRING_CLOUD_CONFIG_URI=http://cloud-config:8888
+      - SPRING_CLOUD_CONFIG_URI=http://cloud-config:8888
     depends_on:
-    - eureka-server
-    - keycloak-server
-    - cloud-config
+      - eureka-server
+      - keycloak-server
+      - cloud-config
 
   marketplace-microservice:
     image: nicolasmonta1807/marketplace-microservice:latest
@@ -74,14 +74,30 @@ services:
       restart_policy:
         condition: on-failure
     ports:
-    - "8081:8081"
+      - "8081:8081"
     networks:
-    - app-network
+      - app-network
     environment:
-    - SPRING_CLOUD_CONFIG_URI=http://cloud-config:8888
+      - SPRING_CLOUD_CONFIG_URI=http://cloud-config:8888
     depends_on:
-    - eureka-server
-    - cloud-config
+      - eureka-server
+      - cloud-config
+
+  reviews-microservice:
+    image: nicolasmonta1807/reviews-microservice
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8085:8085"
+    networks:
+      - app-network
+    environment:
+      - SPRING_CLOUD_CONFIG_URI=http://cloud-config:8888
+    depends_on:
+      - eureka-server
+      - cloud-config
 
 networks:
   app-network:
