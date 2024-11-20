@@ -53,4 +53,26 @@ public class SwaggerRouteConfig {
             }))
         .build();
   }
+
+    @Bean
+    public RouterFunction<ServerResponse> reviewsServiceRoute(WebClient.Builder loadBalancedWebClientBuilder) {
+        WebClient webClient = loadBalancedWebClientBuilder.baseUrl("lb://reviews-microservice").build();
+
+        return RouterFunctions.route()
+                .GET("/aggregate/reviews-microservice/v3/api-docs", request -> webClient.get()
+                        .uri("/api-docs")
+                        .retrieve()
+                        .toEntity(String.class)
+                        .flatMap(responseEntity -> {
+                            String body = responseEntity.getBody();
+                            if (body == null) {
+                                return ServerResponse.status(responseEntity.getStatusCode())
+                                        .bodyValue("No content available");
+                            }
+                            return ServerResponse.status(responseEntity.getStatusCode())
+                                    .headers(headers -> headers.addAll(responseEntity.getHeaders()))
+                                    .bodyValue(body);
+                        }))
+                .build();
+    }
 }

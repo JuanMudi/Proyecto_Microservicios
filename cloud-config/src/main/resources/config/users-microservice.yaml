@@ -1,5 +1,4 @@
 server-port: 8082
-keycloak-url: http://keycloak-server:9090
 kafka-broker: 54.224.168.24:9092
 
 server:

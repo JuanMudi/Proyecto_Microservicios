@@ -17,8 +17,8 @@ RUN apt-get update && apt-get install -y netcat-openbsd && rm -rf /var/lib/apt/l
 COPY wait-for-it.sh /app/wait-for-it.sh
 RUN chmod +x /app/wait-for-it.sh
 
-COPY --from=build /app/target/*.jar users-microservice.jar
+COPY --from=build /app/target/*.jar reviews-microservice.jar
 
-EXPOSE 8082
+EXPOSE 8085
 
-CMD ["/app/wait-for-it.sh", "keycloak-server", "9090", "java", "-jar", "users-microservice.jar"]
+CMD ["/app/wait-for-it.sh", "keycloak-server", "9090", "java", "-jar", "reviews-microservice.jar"]
