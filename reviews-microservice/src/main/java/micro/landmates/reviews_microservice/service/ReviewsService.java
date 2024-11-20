@@ -5,6 +5,8 @@ import micro.landmates.reviews_microservice.model.reviews.Review;
 import micro.landmates.reviews_microservice.model.reviews.dto.PublishReviewDto;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReviewsService {
     private final ReviewsRepository reviewsRepository;
@@ -21,5 +23,9 @@ public class ReviewsService {
                 .comment(review.getComment())
                 .build();
         return reviewsRepository.save(reviewEntity);
+    }
+
+    public List<Review> getReviewsByServiceItemId(String serviceItemId) {
+        return reviewsRepository.findByServiceItemId(serviceItemId);
     }
 }
