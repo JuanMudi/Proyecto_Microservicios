@@ -53,5 +53,7 @@ springdoc:
       url: /aggregate/users/v3/api-docs
     - name: Marketplace
       url: /aggregate/marketplace/v3/api-docs
+    - name: Reviews & Comments
+      url: /aggregate/reviews-microservice/v3/api-docs
     - name: Gateway Auth
       url: /api-docs
