@@ -11,31 +11,38 @@ import org.springframework.web.cors.CorsConfiguration;
 @Configuration
 @EnableWebFluxSecurity
 public class SecurityConfig {
-        private final String[] freeResourceUrls = { "/swagger-ui.html", "/webjars/**", "/swagger-ui/**",
-                        "/v3/api-docs/**", "/api-docs/**",
-                        "/swagger-resources/**", "/aggregate/**" };
+    private final String[] freeResourceUrls = {"/swagger-ui.html", "/webjars/**", "/swagger-ui/**",
+            "/v3/api-docs/**", "/api-docs/**",
+            "/swagger-resources/**", "/aggregate/**"};
 
-        @Bean
-        SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
-                return http
-                                .cors(cors -> cors.configurationSource(
-                                                request -> new CorsConfiguration().applyPermitDefaultValues()))
-                                .csrf(csrf -> csrf.disable())
-                                .authorizeExchange(exchange -> exchange
-                                                // Allow access to login and registration endpoints
-                                                .pathMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                                                .pathMatchers(HttpMethod.POST, "/auth/register").permitAll()
+    @Bean
+    SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+        return http
+                .cors(cors -> cors.configurationSource(
+                        request -> new CorsConfiguration().applyPermitDefaultValues()))
+                .csrf(csrf -> csrf.disable())
+                .authorizeExchange(exchange -> exchange
+                        // Allow access to login and registration endpoints
+                        .pathMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .pathMatchers(HttpMethod.POST, "/auth/register").permitAll()
 
-                                                .pathMatchers(freeResourceUrls).permitAll()
+                        // Allow access to free resource URLs
+                        .pathMatchers(freeResourceUrls).permitAll()
 
-                                                // Allow access to Actuator endpoints
-                                                .pathMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+                        // Allow access to Actuator endpoints
+                        .pathMatchers(HttpMethod.GET, "/actuator/**").permitAll()
 
-                                                // Any other request should be authenticated
-                                                .anyExchange().authenticated())
-                                .oauth2ResourceServer(oauth2 -> oauth2
-                                                .jwt(jwt -> jwt.jwtAuthenticationConverter(
-                                                                new KeycloakJwtAuthenticationConverter())))
-                                .build();
-        }
+                        // Allow access to /marketplace/services and /marketplace/services/**
+                        // for GET requests
+                        .pathMatchers(HttpMethod.GET, "/marketplace/services").permitAll()
+                        .pathMatchers(HttpMethod.GET, "/marketplace/services/**").permitAll()
+                        .pathMatchers(HttpMethod.POST, "/marketplace/graphql").permitAll()
+
+                        // Any other request should be authenticated
+                        .anyExchange().authenticated())
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(jwt -> jwt.jwtAuthenticationConverter(
+                                new KeycloakJwtAuthenticationConverter())))
+                .build();
+    }
 }

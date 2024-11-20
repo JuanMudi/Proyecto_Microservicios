@@ -1,6 +1,8 @@
 package micro.landmates.gateway.model;
 
 import java.io.Serializable;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,4 +22,7 @@ public class UserDTO implements Serializable {
   private String email;
   private int age;
   private String bio;
+  private String phoneNumber;
+  private String webPage;
+  private List<String> socials;
 }

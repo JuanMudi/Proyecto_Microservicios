@@ -2,13 +2,12 @@ package micro.landmates.marketplace.controller;
 
 import java.util.List;
 
+import micro.landmates.marketplace.model.PublishServiceItemDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.web.bind.annotation.*;
 
 import micro.landmates.marketplace.model.ServiceItem;
 import micro.landmates.marketplace.service.MarketplaceService;
@@ -44,5 +43,12 @@ public class MarketplaceController {
   @GetMapping("/services/search")
   public ResponseEntity<List<ServiceItem>> searchServices(@RequestParam String city) {
     return ResponseEntity.ok().body(service.searchServicesByCity(city));
+  }
+
+  @PostMapping("/services")
+  public ResponseEntity<ServiceItem> createService(@RequestBody PublishServiceItemDto serviceItem, Authentication authentication) {
+    Jwt jwt = (Jwt) authentication.getPrincipal();
+    String userId = jwt.getSubject();
+  return new ResponseEntity<ServiceItem>(this.service.createServiceItem(serviceItem, userId), HttpStatus.CREATED);
   }
 }

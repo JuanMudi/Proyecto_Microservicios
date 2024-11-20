@@ -1,10 +1,15 @@
 # Variables de servicio
-keycloak-url: http://localhost:9090
+keycloak-url: http://keycloak-server:9090
 server-port: 8080
 keycloak-secret: BeYS8ySrXHAzGjCq8iZz0apg99KkZJYx
-kafka-broker: localhost:9092
+kafka-broker: 54.224.168.24:9092
 
 # Descripción del servicio
+
+eureka:
+  instance:
+    hostname: gateway
+
 spring:
   application:
     name: gateway
@@ -48,5 +53,7 @@ springdoc:
       url: /aggregate/users/v3/api-docs
     - name: Marketplace
       url: /aggregate/marketplace/v3/api-docs
+    - name: Reviews & Comments
+      url: /aggregate/reviews-microservice/v3/api-docs
     - name: Gateway Auth
       url: /api-docs

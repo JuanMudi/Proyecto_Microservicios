@@ -7,6 +7,10 @@ spring:
     schema:
       locations: classpath*:graphql/**/
 
+eureka:
+  instance:
+    hostname: marketplace-microservice
+
 server:
   port: 8081
 

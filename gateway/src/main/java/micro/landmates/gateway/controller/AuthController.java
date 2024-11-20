@@ -80,6 +80,9 @@ public class AuthController {
                                 .email(registration.getEmail())
                                 .age(registration.getAge())
                                 .bio(registration.getBio())
+                                .phoneNumber(registration.getPhoneNumber())
+                                .webPage(registration.getWebPage())
+                                .socials(registration.getSocials())
                                 .build();
                         streamBridge.send(userManagementTopic, MessageBuilder.withPayload(userDTO).build());
 

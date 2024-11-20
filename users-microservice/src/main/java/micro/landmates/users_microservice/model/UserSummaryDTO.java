@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -22,4 +23,6 @@ public class UserSummaryDTO implements Serializable {
   private String id;
   private String name;
   private String email;
+  private String webPage;
+  private List<String> socials;
 }

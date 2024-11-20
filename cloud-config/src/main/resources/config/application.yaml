@@ -1,5 +1,6 @@
 # Global variables
-eureka-url: http://localhost:8761
+eureka-url: http://eureka-server:8761
+keycloak-url: http://keycloak-server:9090
 
 # Eureka Registration
 eureka:
@@ -8,7 +9,7 @@ eureka:
     serviceUrl:
       defaultZone: ${eureka-url}/eureka/
   instance:
-    prefer-ip-address: true
+    prefer-ip-address: false
 
 # Actuator & Monitor
 management:

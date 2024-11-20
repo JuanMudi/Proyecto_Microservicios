@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Document(collection = "users")
 @Getter
 @Setter
@@ -23,4 +25,6 @@ public class User {
   private String bio;
   private String email;
   private boolean active;
+  private String webPage;
+  private List<String> socials;
 }
