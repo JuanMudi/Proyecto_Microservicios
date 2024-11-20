@@ -10,4 +10,4 @@ COPY landmates-kc.json /opt/keycloak/data/import/
 
 EXPOSE 9090
 
-ENTRYPOINT ["bin/kc.sh", "start-dev", "--http-port", "9090", "--import-realm"]
+ENTRYPOINT ["bin/kc.sh", "start-dev", "--http-port", "9090", "--http-enabled-true", "--import-realm"]
