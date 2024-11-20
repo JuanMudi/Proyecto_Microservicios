@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: reviews-microservice
+  config:
+    import: "configserver:http://cloud-config:8888"
+  cloud:
+    config:
+      fail-fast: true
+  retry:
+    initial-interval: 1000
+    max-attempts: 10
+    max-interval: 5000
+    multiplier: 2

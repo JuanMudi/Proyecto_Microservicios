@@ -1,0 +1,24 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://ms-client:LandMates2024@clusterms.xphsc.mongodb.net/?retryWrites=true&w=majority&appName=ClusterMS
+      database: reviews
+
+eureka:
+  instance:
+    hostname: reviews-microservice
+
+server:
+  port: 8083
+
+info:
+  app:
+    name: Landmates Reviews Service
+    description: Service to publish reviews, ratings and comments for marketplace
+    version: 0.0.1
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs
