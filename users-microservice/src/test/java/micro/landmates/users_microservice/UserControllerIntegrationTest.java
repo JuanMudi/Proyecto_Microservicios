@@ -57,7 +57,8 @@ public class UserControllerIntegrationTest {
 
   @Test
   public void testUpdateUserProfile_Unauthorized() {
-    UserDTO updatedUser = new UserDTO("12345", "Updated Name", "updated@example.com", 25, "Updated bio");
+    UserDTO updatedUser = new UserDTO("12345", "Updated Name", "updated@example.com", 25, "Updated bio", "3003898475",
+        "page.com", List.of("instagram"));
 
     webTestClient
         .put()
@@ -70,7 +71,8 @@ public class UserControllerIntegrationTest {
 
   @Test
   public void testUpdateUserProfile_Forbidden() {
-    UserDTO updatedUser = new UserDTO("12345", "Updated Name", "updated@example.com", 25, "Updated bio");
+    UserDTO updatedUser = new UserDTO("12345", "Updated Name", "updated@example.com", 25, "Updated bio", "3003898475",
+        "page.com", List.of("instagram"));
 
     webTestClient
         .mutateWith(SecurityMockServerConfigurers.mockJwt().jwt(jwt -> {
@@ -90,7 +92,8 @@ public class UserControllerIntegrationTest {
     // WebTestClient webTestClient =
     // WebTestClient.bindToApplicationContext(applicationContext).build();
 
-    UserDTO updatedUser = new UserDTO("67890", "Updated Name", "updated@example.com", 25, "Updated bio");
+    UserDTO updatedUser = new UserDTO("12345", "Updated Name", "updated@example.com", 25, "Updated bio", "3003898475",
+        "page.com", List.of("instagram"));
 
     when(userService.updateUserProfile(eq("67890"), any(UserDTO.class))).thenReturn(updatedUser);
 

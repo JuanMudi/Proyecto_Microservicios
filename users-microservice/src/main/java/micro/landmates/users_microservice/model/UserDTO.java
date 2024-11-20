@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,4 +23,7 @@ public class UserDTO implements Serializable {
   private String email;
   private int age;
   private String bio;
+  private String phoneNumber;
+  private String webPage;
+  private List<String> socials;
 }
